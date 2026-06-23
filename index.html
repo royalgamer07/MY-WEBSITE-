@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>BCA Notes Portal</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:linear-gradient(120deg,#84fab0,#8fd3f4);
+}
+
+.logo{
+    text-align:center;
+    margin-top:50px;
+    font-size:65px;
+    font-weight:bold;
+    text-shadow:2px 2px 5px gray;
+}
+
+.blue{color:#4285F4;}
+.red{color:#EA4335;}
+.yellow{color:#FBBC05;}
+.green{color:#34A853;}
+
+.search-box{
+    text-align:center;
+    margin:30px;
+}
+
+input{
+    width:60%;
+    padding:15px;
+    border-radius:30px;
+    border:none;
+    font-size:18px;
+    box-shadow:0 0 10px gray;
+}
+
+button{
+    padding:12px 25px;
+    margin:15px;
+    background:#ff5722;
+    color:white;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#e91e63;
+}
+
+.upload-box{
+    width:70%;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 15px gray;
+}
+
+.notes{
+    width:80%;
+    margin:30px auto;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    margin:20px;
+    border-radius:15px;
+    box-shadow:0 0 10px gray;
+}
+
+.card h3{
+    color:#673ab7;
+}
+
+a{
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="logo">
+
+<span class="blue">B</span>
+<span class="red">C</span>
+<span class="yellow">A</span>
+<span class="green"> Notes</span>
+
+</div>
+
+
+
+<div class="search-box">
+
+<input type="text" id="search" placeholder="Search BCA Notes...">
+
+<br>
+
+<button onclick="searchNotes()">Search</button>
+
+</div>
+
+
+
+<div class="upload-box">
+
+<h2>📚 Upload BCA PDF Notes</h2>
+
+<input type="file" id="pdfFile" accept="application/pdf">
+
+<br>
+
+<button onclick="uploadPDF()">Upload PDF</button>
+
+<p id="message"></p>
+
+</div>
+
+
+
+
+<div class="notes">
+
+<h2>📖 Available Notes</h2>
+
+<div id="pdfList">
+
+
+<div class="card">
+<h3>C Programming Notes</h3>
+<a href="c_notes.pdf" download>
+<button>Download PDF</button>
+</a>
+</div>
+
+
+<div class="card">
+<h3>Data Structure Notes</h3>
+<a href="ds_notes.pdf" download>
+<button>Download PDF</button>
+</a>
+</div>
+
+
+<div class="card">
+<h3>Java Notes</h3>
+<a href="java_notes.pdf" download>
+<button>Download PDF</button>
+</a>
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+<script>
+
+
+let pdfFiles=[];
+
+
+
+function searchNotes(){
+
+let text=document.getElementById("search").value;
+
+alert("Searching : "+text);
+
+}
+
+
+
+
+function uploadPDF(){
+
+
+let file=document.getElementById("pdfFile").files[0];
+
+
+if(file && file.type=="application/pdf"){
+
+
+let url=URL.createObjectURL(file);
+
+
+pdfFiles.push({
+name:file.name,
+url:url
+});
+
+
+showPDF();
+
+
+document.getElementById("message").innerHTML=
+"✅ Uploaded : "+file.name;
+
+
+}
+
+else{
+
+alert("Only PDF file allowed");
+
+}
+
+}
+
+
+
+
+function showPDF(){
+
+
+let list=document.getElementById("pdfList");
+
+
+pdfFiles.forEach(function(pdf){
+
+
+list.innerHTML += `
+
+<div class="card">
+
+<h3>📄 ${pdf.name}</h3>
+
+<a href="${pdf.url}" download="${pdf.name}">
+<button>Download PDF</button>
+</a>
+
+</div>
+
+`;
+
+});
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>
